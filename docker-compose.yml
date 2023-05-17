@@ -1,5 +1,13 @@
 version: "3"
 
+volumes:
+  postgresqldata:
+  redisdata:
+
+networks:
+  frontend:
+  backend:
+
 services:
   chirpstack:
     image: chirpstack/chirpstack:4
@@ -16,9 +24,11 @@ services:
       - MQTT_BROKER_HOST=mosquitto
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
-      - CHIRPSTACK_MQTT_PWD=""
     ports:
       - 8080:8080
+    networks:
+      - frontend
+      - backend
 
   chirpstack-gateway-bridge-eu868:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -29,6 +39,8 @@ services:
       - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
     depends_on: 
       - mosquitto
+    networks:
+      - backend
 
   chirpstack-rest-api:
     image: chirpstack/chirpstack-rest-api:4
@@ -38,6 +50,8 @@ services:
       - 8090:8090
     depends_on:
       - chirpstack
+    networks:
+      - backend
 
   postgres:
     image: postgres:14-alpine
@@ -47,31 +61,24 @@ services:
       - postgresqldata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
+    networks:
+      - backend
 
   redis:
     image: redis:7-alpine
     restart: unless-stopped
     volumes:
       - redisdata:/data
+    networks:
+      - backend
 
   mosquitto:
     image: eclipse-mosquitto:2
+    container_name: mosquitto
     restart: unless-stopped
     ports:
       - 1883:1883
     volumes: 
-      - ./configuration/mosquitto/:/mosquitto/config/
-
-  # node-red:
-  #   image: nodered/node-red:latest
-  #   environment:
-  #     - TZ=Europe/Amsterdam
-  #   ports:
-  #     - "1880:1880"
-  #   volumes:
-  #     - node-red-data:/data
-
-volumes:
-  postgresqldata:
-  redisdata:
-  # node-red-data:
+      - ./configuration/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - backend
