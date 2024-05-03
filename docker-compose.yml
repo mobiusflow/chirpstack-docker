@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 volumes:
   postgresqldata:
@@ -14,7 +14,7 @@ services:
     command: -c /etc/chirpstack
     restart: unless-stopped
     volumes:
-      - ./configuration/chirpstack:/etc/chirpstack
+      - ./stacks/chirpstack/configuration/chirpstack:/etc/chirpstack
       - ./lorawan-devices:/opt/lorawan-devices
     depends_on:
       - postgres
@@ -22,6 +22,7 @@ services:
       - redis
     environment:
       - MQTT_BROKER_HOST=mosquitto
+      - MQTT_BROKER_PASSWORD=mqtt
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
     ports:
@@ -36,8 +37,8 @@ services:
     ports:
       - 1700:1700/udp
     volumes:
-      - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
-    depends_on: 
+      - ./stacks/chirpstack/configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
+    depends_on:
       - mosquitto
     networks:
       - backend
@@ -57,7 +58,7 @@ services:
     image: postgres:14-alpine
     restart: unless-stopped
     volumes:
-      - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
+      - ./stacks/chirpstack/configuration/postgresql/initdb:/docker-entrypoint-initdb.d
       - postgresqldata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
@@ -78,7 +79,7 @@ services:
     restart: unless-stopped
     ports:
       - 1883:1883
-    volumes: 
-      - ./configuration/mosquitto/:/mosquitto/config/
+    volumes:
+      - ./stacks/chirpstack/configuration/mosquitto/:/mosquitto/config/
     networks:
       - backend
