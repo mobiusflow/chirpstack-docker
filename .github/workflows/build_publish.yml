@@ -26,9 +26,9 @@ jobs:
           scope: '@mobiusflow'
 
       - name: Build
-        run: mkdir -p chripstack-docker
-          cp -r ./configuration ./chripstack-docker/configuration
-          cp docker-compose.yml ./chripstack-docker/docker-compose.yml
+        run: mkdir -p chripstack-docker &&
+          cp -r ./configuration ./chripstack-docker/configuration &&
+          cp docker-compose.yml ./chripstack-docker/docker-compose.yml &&
           zip -r chripstack-docker.zip ./chripstack-docker
         env:
           GH_PKG_READ_TOKEN: ${{ secrets.GH_PKG_READ_TOKEN }}
