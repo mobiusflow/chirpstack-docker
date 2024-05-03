@@ -22,7 +22,7 @@ services:
       - redis
     environment:
       - MQTT_BROKER_HOST=mosquitto
-      - MQTT_BROKER_PASSWORD=mqtt
+      - MQTT_BROKER_PASSWORD=<MQTT_BROKER_PASSWORD>
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
     ports:
@@ -78,7 +78,7 @@ services:
     container_name: mosquitto
     restart: unless-stopped
     ports:
-      - 1883:1883
+      - 1884:1883
     volumes:
       - ./stacks/chirpstack/configuration/mosquitto/:/mosquitto/config/
     networks:
