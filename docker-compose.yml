@@ -35,7 +35,7 @@ services:
     image: chirpstack/chirpstack-gateway-bridge:4
     restart: unless-stopped
     ports:
-      - 1700:1700/udp
+      - 1701:1700/udp
     volumes:
       - ./stacks/chirpstack/configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
     depends_on:

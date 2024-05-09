@@ -29,7 +29,6 @@ jobs:
         run: mkdir -p chirpstack-docker &&
           cp -r ./configuration ./chirpstack-docker/configuration &&
           cp docker-compose.yml ./chirpstack-docker/docker-compose.yml &&
-          cp -r mosquitto_passwd ./chirpstack-docker/mosquitto_passwd &&
           zip -r chirpstack-docker.zip ./chirpstack-docker
         env:
           GH_PKG_READ_TOKEN: ${{ secrets.GH_PKG_READ_TOKEN }}
