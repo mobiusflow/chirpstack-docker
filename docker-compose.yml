@@ -23,6 +23,7 @@ services:
     environment:
       - MQTT_BROKER_HOST=mosquitto
       - MQTT_BROKER_PASSWORD=<MQTT_BROKER_PASSWORD>
+      - MQTT_BROKER_PORT=1884
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
     ports:

@@ -30,7 +30,7 @@ but keep in mind that for production usage it might need modifications.
 ## Configuration
 
 This setup is pre-configured for all regions. You can either connect a ChirpStack Gateway Bridge
-instance (v3.14.0+) to the MQTT broker (port 1883) or connect a Semtech UDP Packet Forwarder.
+instance (v3.14.0+) to the MQTT broker (port 1884) or connect a Semtech UDP Packet Forwarder.
 Please note that:
 
 - You must prefix the MQTT topic with the region
