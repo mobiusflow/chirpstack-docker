@@ -2,9 +2,9 @@
 # configuration example and documentation.
 
 [integration.mqtt.auth.generic]
-servers=["tcp://mosquitto:$MQTT_BROKER_PORT/"]
+servers=["tcp://mosquitto:1884/"]
 username="chirpstack"
-password="$MQTT_BROKER_PASSWORD"
+password="<MQTT_BROKER_PASSWORD>"
 
 [integration.mqtt]
 event_topic_template="eu868/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
