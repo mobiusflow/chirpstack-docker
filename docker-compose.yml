@@ -30,9 +30,19 @@ services:
     image: chirpstack/chirpstack-gateway-bridge:4
     restart: unless-stopped
     ports:
+      - 1700:1700/udp
+    volumes:
+      - ./config/chirpstack/configuration/chirpstack-gateway-bridge/eu868:/etc/chirpstack-gateway-bridge
+    depends_on:
+      - mosquitto
+
+  chirpstack-gateway-bridge-us915_0:
+    image: chirpstack/chirpstack-gateway-bridge:4
+    restart: unless-stopped
+    ports:
       - 1701:1700/udp
     volumes:
-      - ./config/chirpstack/configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
+      - ./config/chirpstack/configuration/chirpstack-gateway-bridge/us915_0:/etc/chirpstack-gateway-bridge
     depends_on:
       - mosquitto
 
@@ -65,6 +75,6 @@ services:
     container_name: mosquitto
     restart: unless-stopped
     ports:
-      - 1884:1883
+      - 1884:1884
     volumes:
       - ./config/chirpstack/configuration/mosquitto/:/mosquitto/config/
