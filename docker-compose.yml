@@ -46,6 +46,16 @@ services:
     depends_on:
       - mosquitto
 
+  chirpstack-gateway-bridge-us915_1:
+    image: chirpstack/chirpstack-gateway-bridge:4
+    restart: unless-stopped
+    ports:
+      - 1702:1700/udp
+    volumes:
+      - ./config/chirpstack/configuration/chirpstack-gateway-bridge/us915_1:/etc/chirpstack-gateway-bridge
+    depends_on:
+      - mosquitto
+
   chirpstack-rest-api:
     image: chirpstack/chirpstack-rest-api:4
     restart: unless-stopped
