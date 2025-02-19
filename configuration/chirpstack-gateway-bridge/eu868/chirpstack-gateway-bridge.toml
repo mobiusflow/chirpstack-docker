@@ -1,10 +1,15 @@
 # See https://www.chirpstack.io/gateway-bridge/install/config/ for a full
 # configuration example and documentation.
 
+[general]
+# debug=5, info=4, warning=3, error=2, fatal=1, panic=0
+log_level=2
+log_to_syslog=false
+
 [integration.mqtt.auth.generic]
-servers=["tcp://mosquitto:1883/"]
+servers=["tcp://mosquitto:1884/"]
 username="chirpstack"
-password=""
+password="<MQTT_BROKER_PASSWORD>"
 
 [integration.mqtt]
 event_topic_template="eu868/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
