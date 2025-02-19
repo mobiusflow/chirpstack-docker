@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   postgresqldata:
@@ -24,7 +24,7 @@ services:
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
     ports:
-      - 8082:8082
+      - 8083:8082
 
   chirpstack-gateway-bridge-eu868:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -55,15 +55,6 @@ services:
       - ./config/chirpstack/configuration/chirpstack-gateway-bridge/us915_1:/etc/chirpstack-gateway-bridge
     depends_on:
       - mosquitto
-
-  chirpstack-rest-api:
-    image: chirpstack/chirpstack-rest-api:4
-    restart: unless-stopped
-    command: --server chirpstack:8082 --bind 0.0.0.0:8090 --insecure
-    ports:
-      - 8090:8090
-    depends_on:
-      - chirpstack
 
   postgres:
     image: postgres:14-alpine
